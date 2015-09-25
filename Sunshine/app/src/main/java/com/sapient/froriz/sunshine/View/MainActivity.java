@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private EditText mEditText;
     private Button mButton;
 
-    private OpenWeatherApi getWeatherAPI;
-
     private MainPresenter presenter;
 
     @Override
