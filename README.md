@@ -1,6 +1,7 @@
 # openweather-mvp
 An example app showcasing MVP Design Pattern using the Open Weather API
 
-This is an example project whose purpose was to help me implement a MVP Design Pattern for an Android Project.
+The goal is to simply get weather data from Open Weather API and populate it into a TextView, while utilizing
+a MVP Architecture.
 
-It also utilizes Robolectric for the Unit Tests and Retrofit as the Networking Library.
+The app also utilizes Robolectric for the Unit Tests and Retrofit as the Networking Library.
