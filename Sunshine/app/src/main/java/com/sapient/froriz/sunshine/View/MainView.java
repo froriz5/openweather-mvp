@@ -1,4 +1,4 @@
-package com.sapient.froriz.sunshine.Presenter;
+package com.sapient.froriz.sunshine.View;
 
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 

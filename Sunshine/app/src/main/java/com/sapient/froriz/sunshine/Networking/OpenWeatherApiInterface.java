@@ -2,7 +2,6 @@ package com.sapient.froriz.sunshine.Networking;
 
 
 import com.sapient.froriz.sunshine.Presenter.MainPresenter;
-import com.sapient.froriz.sunshine.Presenter.MainView;
 
 
 /**

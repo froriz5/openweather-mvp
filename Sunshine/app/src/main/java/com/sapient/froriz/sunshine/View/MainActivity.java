@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.sapient.froriz.sunshine.Networking.OpenWeatherApi;
 import com.sapient.froriz.sunshine.Presenter.MainPresenter;
-import com.sapient.froriz.sunshine.Presenter.MainView;
 import com.sapient.froriz.sunshine.Presenter.MainPresenterImpl;
 import com.sapient.froriz.sunshine.R;
 import com.sapient.froriz.sunshine.models.WeatherEntry;

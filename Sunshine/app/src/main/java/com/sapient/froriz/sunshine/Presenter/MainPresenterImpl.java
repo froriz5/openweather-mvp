@@ -3,6 +3,7 @@ package com.sapient.froriz.sunshine.Presenter;
 
 import com.sapient.froriz.sunshine.Networking.OpenWeatherApiInterface;
 import com.sapient.froriz.sunshine.Networking.OpenWeatherMapWrapper;
+import com.sapient.froriz.sunshine.View.MainView;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
 /**
