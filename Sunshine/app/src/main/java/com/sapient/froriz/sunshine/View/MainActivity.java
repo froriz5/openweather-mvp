@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void setWeatherData(WeatherEntry weatherEntry) {
         // weatherEntry will be null if entry from API not found (responseCode 404)
         if (weatherEntry != null) {
-            Log.d("WEATHER_DEBUG", weatherEntry.toString());
             mTextView.setText(weatherEntry.toString());
         }
         else {
