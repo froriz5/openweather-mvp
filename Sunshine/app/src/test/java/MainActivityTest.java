@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Felipe Roriz on 9/25/15.
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class MainActivityTest {
 
     private MainActivity mainActivity;
