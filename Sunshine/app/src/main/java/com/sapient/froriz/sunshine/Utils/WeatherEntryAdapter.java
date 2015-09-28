@@ -23,18 +23,18 @@ public class WeatherEntryAdapter extends RecyclerView.Adapter<WeatherEntryAdapte
     private List<WeatherEntry> weatherEntryDataset;
 
     /**
-     * Set the dataset after a new list is created.
-     * @param weatherEntryDataset List of Weather Entry POJOs.
-     */
-    public void setWeatherEntryDataset(List<WeatherEntry> weatherEntryDataset) {
-        this.weatherEntryDataset = weatherEntryDataset;
-    }
-
-    /**
      * Constructor for initializing the adapter's dataset.
      * @param weatherEntryDataset List of Weather Entry POJOs.
      */
     public WeatherEntryAdapter(List<WeatherEntry> weatherEntryDataset) {
+        this.weatherEntryDataset = weatherEntryDataset;
+    }
+
+    /**
+     * Set the dataset after a new list is created.
+     * @param weatherEntryDataset List of Weather Entry POJOs.
+     */
+    public void setWeatherEntryDataset(List<WeatherEntry> weatherEntryDataset) {
         this.weatherEntryDataset = weatherEntryDataset;
     }
 
