@@ -1,6 +1,8 @@
 import android.widget.TextView;
 
 import com.sapient.froriz.sunshine.BuildConfig;
+import com.sapient.froriz.sunshine.Presenter.MainPresenter;
+import com.sapient.froriz.sunshine.Presenter.MainPresenterImpl;
 import com.sapient.froriz.sunshine.View.MainActivity;
 import com.sapient.froriz.sunshine.R;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
@@ -24,16 +26,18 @@ public class MainActivityTest {
 
     private MainActivity mainActivity;
     private WeatherEntry testWeatherEntry;
+    private MainPresenter presenter;
 
     @Before
     public void setUp() {
         mainActivity = Robolectric.setupActivity(MainActivity.class);
+        presenter = new MainPresenterImpl(mainActivity);
         testWeatherEntry = new WeatherEntry();
     }
 
     @Test
     public void textViewShouldBeEmptyWithNullData() {
-        mainActivity.setWeatherData(null);
+        presenter.setWeatherData(null);
 
         TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
         assertEquals(textView.getText().toString(), "");
@@ -41,7 +45,7 @@ public class MainActivityTest {
 
     @Test
     public void textViewShouldBeFilledWithData() {
-        mainActivity.setWeatherData(testWeatherEntry);
+        presenter.setWeatherData(testWeatherEntry);
 
         TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
         assertEquals(textView.getText().toString(), testWeatherEntry.toString());
