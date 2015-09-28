@@ -6,6 +6,8 @@ import com.sapient.froriz.sunshine.Networking.OpenWeatherMapWrapper;
 import com.sapient.froriz.sunshine.View.MainView;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
+import java.util.List;
+
 /**
  * Implementation of the Main Activity Presenter to control the Main Activity.
  * Created by Felipe Roriz on 9/24/15.
@@ -25,21 +27,20 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     /**
-     * Tells the Main Activity to use it's setWeatherData method with a given WeatherEntry.
-     * @param weatherEntry WeatherEntry converted by the wrapper from the response given by the
-     *                     Open Weather API.
+     * Tells the view to update it's Recycler View's weather data entries.
+     * @param weatherEntries List of Weather Entry POJOs.
      */
     @Override
-    public void setWeatherData(WeatherEntry weatherEntry) {
-        view.setWeatherData(weatherEntry);
+    public void setWeatherData(List<WeatherEntry> weatherEntries) {
+        view.setWeatherData(weatherEntries);
     }
 
     /**
      * Tells the Wrapper to make the API call to Open Weather API with a given location.
-     * @param location City name.
+     * @param cityName City name.
      */
     @Override
-    public void makeApiCall(String location) {
-        wrapper.getOpenWeatherMapRoot(location, this);
+    public void makeApiCall(String cityName) {
+        wrapper.getOpenWeatherMapForecastRoot(cityName, this);
     }
 }

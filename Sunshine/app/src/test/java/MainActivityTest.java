@@ -1,3 +1,4 @@
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.sapient.froriz.sunshine.BuildConfig;
@@ -14,6 +15,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -25,29 +29,32 @@ import static org.junit.Assert.assertEquals;
 public class MainActivityTest {
 
     private MainActivity mainActivity;
-    private WeatherEntry testWeatherEntry;
     private MainPresenter presenter;
+    private RecyclerView recyclerView;
 
     @Before
     public void setUp() {
         mainActivity = Robolectric.setupActivity(MainActivity.class);
         presenter = new MainPresenterImpl(mainActivity);
-        testWeatherEntry = new WeatherEntry();
+        recyclerView = (RecyclerView) mainActivity.findViewById(R.id.recyclerView);
     }
 
     @Test
-    public void textViewShouldBeEmptyWithNullData() {
+    public void weatherDataListShouldBeEmptyWithNull() {
         presenter.setWeatherData(null);
 
-        TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
-        assertEquals(textView.getText().toString(), "");
+        assertEquals(recyclerView.getAdapter().getItemCount(), 0);
     }
 
     @Test
-    public void textViewShouldBeFilledWithData() {
-        presenter.setWeatherData(testWeatherEntry);
+    public void weatherDataListShouldBeFilled() {
+        // Create list of mock WeatherEntry POJOs.
+        List<WeatherEntry> weatherEntryList = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            weatherEntryList.add(WeatherEntry.createWeatherEntry());
+        }
+        mainActivity.setWeatherData(weatherEntryList);
 
-        TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
-        assertEquals(textView.getText().toString(), testWeatherEntry.toString());
+        assertEquals(recyclerView.getAdapter().getItemCount(), 7);
     }
 }

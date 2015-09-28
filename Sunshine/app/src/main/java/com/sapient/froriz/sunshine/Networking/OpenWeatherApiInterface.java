@@ -10,5 +10,5 @@ import com.sapient.froriz.sunshine.Presenter.MainPresenter;
  */
 public interface OpenWeatherApiInterface {
 
-    public void getOpenWeatherMapRoot(String location, MainPresenter presenter);
+    public void getOpenWeatherMapForecastRoot(String cityName, MainPresenter presenter);
 }

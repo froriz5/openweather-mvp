@@ -1,6 +1,7 @@
 package com.sapient.froriz.sunshine.Networking;
 
 
+import com.sapient.froriz.sunshine.models.OpenWeatherMapForecastRoot;
 import com.sapient.froriz.sunshine.models.OpenWeatherMapRoot;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
@@ -14,10 +15,12 @@ import retrofit.http.Query;
  */
 public interface OpenWeatherApi {
 
-    @GET("/data/2.5/weather")
-    void getWeatherFromApi (
-        @Query("q") String location,
-        @Query("APPID") String apiKey,
-        @Query("units") String units,
-        Callback<OpenWeatherMapRoot> callback);
+    @GET("/data/2.5/forecast/daily")
+    void getWeatherForecastFromApi (
+            @Query("q") String cityName,
+            @Query("APPID") String apiKey,
+            @Query("units") String units,
+            @Query("cnt") int count,
+            Callback<OpenWeatherMapForecastRoot> callback
+    );
 }

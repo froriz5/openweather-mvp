@@ -7,8 +7,13 @@ import com.google.gson.GsonBuilder;
 import com.sapient.froriz.sunshine.BuildConfig;
 
 import com.sapient.froriz.sunshine.Presenter.MainPresenter;
+import com.sapient.froriz.sunshine.models.OpenWeatherMapForecastRoot;
 import com.sapient.froriz.sunshine.models.OpenWeatherMapRoot;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -32,6 +37,10 @@ public class OpenWeatherMapWrapper implements OpenWeatherApiInterface{
      */
     private String unitType = "imperial";
 
+    /**
+     * Number of days to get from Response.
+     */
+    private int count = 7;
 
     private MainPresenter presenter;
 
@@ -61,25 +70,23 @@ public class OpenWeatherMapWrapper implements OpenWeatherApiInterface{
 
     /**
      * Makes an asynchronous call to the Open Weather API and gets a JSON object of weather data.
-     * @param location City name.
+     * @param cityName City name.
      * @param presenter The Presenter that will update a given view.
      */
     @Override
-    public void getOpenWeatherMapRoot(final String location, final MainPresenter presenter) {
+    public void getOpenWeatherMapForecastRoot(final String cityName, final MainPresenter presenter) {
 
-        openWeatherApi.getWeatherFromApi(location, apiKey, unitType, new Callback<OpenWeatherMapRoot>() {
-
+        openWeatherApi.getWeatherForecastFromApi(cityName, apiKey, unitType, count, new Callback<OpenWeatherMapForecastRoot>() {
+            List<WeatherEntry> weatherEntries;
             @Override
-            public void success(OpenWeatherMapRoot openWeatherMapRoot, Response response) {
-                WeatherEntry weatherEntry;
-                // If response has response code 404, set weatherEntry to null.
-                if (openWeatherMapRoot.getStatusCode() == 404) {
-                    weatherEntry = null;
+            public void success(OpenWeatherMapForecastRoot openWeatherMapForecastRoot, Response response) {
+                if (openWeatherMapForecastRoot.getStatusCode() == 404) {
+                    weatherEntries = null;
                 }
                 else {
-                    weatherEntry = WeatherEntry.createWeatherEntry(location, openWeatherMapRoot);
+                    weatherEntries = WeatherEntry.createWeatherEntryList(cityName, openWeatherMapForecastRoot.getList());
                 }
-                presenter.setWeatherData(weatherEntry);
+                presenter.setWeatherData(weatherEntries);
             }
 
             @Override

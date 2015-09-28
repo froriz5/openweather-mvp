@@ -11,23 +11,28 @@ import java.util.List;
 public class OpenWeatherMapRoot extends OpenWeatherMapBase {
 
     @SerializedName("weather") private List<OpenWeatherMapWeather> weather;
-    @SerializedName("main") private OpenWeatherMapMain main;
+    @SerializedName("temp") private OpenWeatherMapTemp temp;
+    @SerializedName("dt") private long date;
 
     public List<OpenWeatherMapWeather> getWeather() {
         return weather;
     }
 
-    public OpenWeatherMapMain getMain() {
-        return main;
+    public OpenWeatherMapTemp getMain() {
+        return temp;
+    }
+
+    public long getDate() {
+        return date;
     }
 
     @Override
     public String toString() {
         String toReturn = "";
         toReturn += weather.get(0).getDescription() + ", " +
-                "Low: " + main.getLow() + " " +
-                "High: " + main.getMax() + " " +
-                "Current: " + main.getCurrentTemp();
+                "Low: " + temp.getLow() + " " +
+                "High: " + temp.getMax() + " " +
+                "Current: " + temp.getCurrentTemp();
         return toReturn;
     }
 }

@@ -19,6 +19,8 @@ import com.sapient.froriz.sunshine.Utils.WeatherEntryAdapter;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private WeatherEntryAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private List<WeatherEntry> myDataset;
@@ -40,11 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDataset = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            myDataset.add(WeatherEntry.createWeatherEntry());
-        }
+        myDataset = new ArrayList<>(7);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -55,31 +53,21 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mAdapter = new WeatherEntryAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
 
-//        presenter  = new MainPresenterImpl(this);
-
+        presenter  = new MainPresenterImpl(this);
+        presenter.makeApiCall("Chicago");
 
     }
 
     /**
-     * Updates the TextView to display weather data from Open Weather API.
-     * @param weatherEntry A model holding weather data.
+     * Set the Recycler View's Adapter's dataset to the given list, and notify the adapter of the change.
+     * @param weatherEntries List of Weather Entry POJOs.
      */
-//    @Override
-//    public void setWeatherData(WeatherEntry weatherEntry) {
-//        // weatherEntry will be null if entry from API not found (responseCode 404)
-//        if (weatherEntry != null) {
-//            mTextView.setText(weatherEntry.toString());
-//        }
-//        else {
-//            mTextView.setText("");
-//            Toast.makeText(this, "Invalid City Name", Toast.LENGTH_LONG).show();
-//        }
-//
-//    }
-
     @Override
-    public void setWeatherData(WeatherEntry weatherEntry) {
-
-
+    public void setWeatherData(List<WeatherEntry> weatherEntries) {
+        if (weatherEntries == null) {
+            weatherEntries = new ArrayList<>(7);
+        }
+        mAdapter.setWeatherEntryDataset(weatherEntries);
+        mAdapter.notifyDataSetChanged();
     }
 }
