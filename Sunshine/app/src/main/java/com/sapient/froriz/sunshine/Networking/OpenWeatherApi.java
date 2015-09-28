@@ -15,6 +15,14 @@ import retrofit.http.Query;
  */
 public interface OpenWeatherApi {
 
+    /**
+     * API Endpoint for the 7 day forecast from Open Weather API.
+     * @param cityName City name.
+     * @param apiKey Api Key.
+     * @param units Type of units (i.e. metric, imperial)
+     * @param count Number of days to return (up to 14, default 7)
+     * @param callback Callback method to utilize response.
+     */
     @GET("/data/2.5/forecast/daily")
     void getWeatherForecastFromApi (
             @Query("q") String cityName,
