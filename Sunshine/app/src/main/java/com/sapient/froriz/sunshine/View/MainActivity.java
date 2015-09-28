@@ -2,6 +2,8 @@ package com.sapient.froriz.sunshine.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +15,11 @@ import com.sapient.froriz.sunshine.Networking.OpenWeatherApi;
 import com.sapient.froriz.sunshine.Presenter.MainPresenter;
 import com.sapient.froriz.sunshine.Presenter.MainPresenterImpl;
 import com.sapient.froriz.sunshine.R;
+import com.sapient.froriz.sunshine.Utils.WeatherEntryAdapter;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main Activity for the Sunshine App.
@@ -21,9 +27,11 @@ import com.sapient.froriz.sunshine.models.WeatherEntry;
  */
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    private TextView mTextView;
-    private EditText mEditText;
-    private Button mButton;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    private List<WeatherEntry> myDataset;
 
     private MainPresenter presenter;
 
@@ -32,40 +40,46 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextView = (TextView)findViewById(R.id.textView);
-        mEditText = (EditText)findViewById(R.id.editText);
-        mButton = (Button)findViewById(R.id.button);
+        myDataset = new ArrayList<>();
 
-        presenter  = new MainPresenterImpl(this);
+        for (int i = 0; i < 5; i++) {
+            myDataset.add(WeatherEntry.createWeatherEntry());
+        }
 
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String location = mEditText.getText().toString();
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-                if (location.length() > 1) {
-                    // Capitalize location name
-                    location = location.substring(0, 1).toUpperCase() + location.substring(1);
-                }
-                presenter.makeApiCall(location);
-            }
-        });
+        mAdapter = new WeatherEntryAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
+
+//        presenter  = new MainPresenterImpl(this);
+
+
     }
 
     /**
      * Updates the TextView to display weather data from Open Weather API.
      * @param weatherEntry A model holding weather data.
      */
+//    @Override
+//    public void setWeatherData(WeatherEntry weatherEntry) {
+//        // weatherEntry will be null if entry from API not found (responseCode 404)
+//        if (weatherEntry != null) {
+//            mTextView.setText(weatherEntry.toString());
+//        }
+//        else {
+//            mTextView.setText("");
+//            Toast.makeText(this, "Invalid City Name", Toast.LENGTH_LONG).show();
+//        }
+//
+//    }
+
     @Override
     public void setWeatherData(WeatherEntry weatherEntry) {
-        // weatherEntry will be null if entry from API not found (responseCode 404)
-        if (weatherEntry != null) {
-            mTextView.setText(weatherEntry.toString());
-        }
-        else {
-            mTextView.setText("");
-            Toast.makeText(this, "Invalid City Name", Toast.LENGTH_LONG).show();
-        }
+
 
     }
 }

@@ -46,6 +46,15 @@ public class WeatherEntry {
     }
 
     /**
+     * Factory method for creating a dummy Weather Entry POJO.
+     * @return
+     */
+    public static WeatherEntry createWeatherEntry() {
+        WeatherEntry weatherEntry = new WeatherEntry("Chicago", 65, 55, 70, "Cloudy");
+        return weatherEntry;
+    }
+
+    /**
      * Factory method for creating a WeatherEntry model with given data.
      * @param location City name
      * @param root JSON object representing the root object from Open Weather API Response.
