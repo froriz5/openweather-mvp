@@ -1,11 +1,14 @@
+/**
+ * Created by froriz on 9/29/15.
+ */
+
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import com.sapient.froriz.sunshine.BuildConfig;
 import com.sapient.froriz.sunshine.Presenter.MainPresenter;
 import com.sapient.froriz.sunshine.Presenter.MainPresenterImpl;
-import com.sapient.froriz.sunshine.View.MainActivity;
 import com.sapient.froriz.sunshine.R;
+import com.sapient.froriz.sunshine.View.MainActivity;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
 import org.junit.Before;
@@ -18,6 +21,8 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 import java.util.List;
 
+import java_cup.Main;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -26,21 +31,22 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
-public class MainActivityTest {
+public class MainPresenterTest {
 
     private MainActivity mainActivity;
+    private MainPresenter presenter;
     private RecyclerView recyclerView;
 
     @Before
     public void setUp() {
         mainActivity = Robolectric.setupActivity(MainActivity.class);
+        presenter = new MainPresenterImpl(mainActivity);
         recyclerView = (RecyclerView) mainActivity.findViewById(R.id.recyclerView);
     }
 
     @Test
     public void weatherDataListShouldBeEmptyWithNull() {
-        mainActivity.setWeatherData(null);
-
+        presenter.setWeatherData(null);
         assertEquals(recyclerView.getAdapter().getItemCount(), 0);
     }
 
@@ -51,8 +57,7 @@ public class MainActivityTest {
         for (int i = 0; i < 7; i++) {
             weatherEntryList.add(WeatherEntry.createWeatherEntry());
         }
-        mainActivity.setWeatherData(weatherEntryList);
-
+        presenter.setWeatherData(weatherEntryList);
         assertEquals(recyclerView.getAdapter().getItemCount(), 7);
     }
 }
