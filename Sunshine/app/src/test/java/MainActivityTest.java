@@ -1,8 +1,6 @@
 import android.widget.TextView;
 
 import com.sapient.froriz.sunshine.BuildConfig;
-import com.sapient.froriz.sunshine.Presenter.MainPresenter;
-import com.sapient.froriz.sunshine.Presenter.MainPresenterImpl;
 import com.sapient.froriz.sunshine.View.MainActivity;
 import com.sapient.froriz.sunshine.R;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
@@ -17,7 +15,7 @@ import org.robolectric.annotation.Config;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit Tests for the Main Activity.
+ * Unit Tests for the Main Activity View.
  * Created by Felipe Roriz on 9/25/15.
  */
 @RunWith(RobolectricGradleTestRunner.class)
@@ -25,19 +23,20 @@ import static org.junit.Assert.assertEquals;
 public class MainActivityTest {
 
     private MainActivity mainActivity;
-    private WeatherEntry testWeatherEntry;
-    private MainPresenter presenter;
+    private WeatherEntry testWeatherEntryEmpty;
+    private WeatherEntry testWeatherEntryFilled;
 
     @Before
     public void setUp() {
         mainActivity = Robolectric.setupActivity(MainActivity.class);
-        presenter = new MainPresenterImpl(mainActivity);
-        testWeatherEntry = new WeatherEntry();
+        testWeatherEntryEmpty = new WeatherEntry("", 0, 0, 0, "");
+        testWeatherEntryEmpty.setToString("");
+        testWeatherEntryFilled = new WeatherEntry();
     }
 
     @Test
     public void textViewShouldBeEmptyWithNullData() {
-        presenter.setWeatherData(null);
+        mainActivity.setWeatherData(testWeatherEntryEmpty);
 
         TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
         assertEquals(textView.getText().toString(), "");
@@ -45,9 +44,9 @@ public class MainActivityTest {
 
     @Test
     public void textViewShouldBeFilledWithData() {
-        presenter.setWeatherData(testWeatherEntry);
+        mainActivity.setWeatherData(testWeatherEntryFilled);
 
         TextView textView = (TextView) mainActivity.findViewById(R.id.textView);
-        assertEquals(textView.getText().toString(), testWeatherEntry.toString());
+        assertEquals(textView.getText().toString(), testWeatherEntryFilled.toString());
     }
 }

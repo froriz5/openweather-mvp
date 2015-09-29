@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
      */
     @Override
     public void setWeatherData(WeatherEntry weatherEntry) {
-        // weatherEntry will be null if entry from API not found (responseCode 404)
-        if (weatherEntry != null) {
-            mTextView.setText(weatherEntry.toString());
-        }
-        else {
+        String weatherIntryToString = weatherEntry.toString();
+        if (weatherIntryToString.equals("")) {
             mTextView.setText("");
             Toast.makeText(this, "Invalid City Name", Toast.LENGTH_LONG).show();
+        }
+        else {
+            mTextView.setText(weatherIntryToString);
         }
 
     }

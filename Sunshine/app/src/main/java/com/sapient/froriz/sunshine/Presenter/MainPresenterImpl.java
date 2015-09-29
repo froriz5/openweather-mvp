@@ -35,6 +35,20 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     /**
+     * Check to see if the WeatherEntry is valid and not null.
+     * @param weatherEntry WeatherEntry POJO.
+     * @return A Valid WeatherEntry POJO.
+     */
+    @Override
+    public WeatherEntry checkWeatherEntry(WeatherEntry weatherEntry) {
+        if (weatherEntry == null) {
+            weatherEntry = new WeatherEntry("", 0, 0, 0, "");
+            weatherEntry.setToString("");
+        }
+        return weatherEntry;
+    }
+
+    /**
      * Tells the Wrapper to make the API call to Open Weather API with a given location.
      * @param location City name.
      */

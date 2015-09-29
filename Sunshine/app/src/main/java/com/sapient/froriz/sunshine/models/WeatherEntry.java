@@ -11,6 +11,7 @@ public class WeatherEntry {
     private double low;
     private double high;
     private String description;
+    private String toString;
 
     /**
      * Dummy data in case a test model is needed.
@@ -34,15 +35,20 @@ public class WeatherEntry {
         this.low = low;
         this.high = high;
         this.description = description;
+        toString = location +" ---- "+
+                "Current: " + currentTemp + " --- " +
+                "Low: " + low + " --- " +
+                "High: " + high;
+
     }
 
     @Override
     public String toString() {
-        return location +" ---- "+
-                "Current: " + currentTemp + " --- " +
-                "Low: " + low + " --- " +
-                "High: " + high;
-//                description;
+        return toString;
+    }
+
+    public void setToString(String toString) {
+        this.toString = toString;
     }
 
     /**
