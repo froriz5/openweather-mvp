@@ -21,7 +21,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit Tests for the Main Activity.
+ * Unit Tests for the Main Activity View.
  * Created by Felipe Roriz on 9/25/15.
  */
 @RunWith(RobolectricGradleTestRunner.class)
@@ -38,9 +38,8 @@ public class MainActivityTest {
     }
 
     @Test
-    public void weatherDataListShouldBeEmptyWithNull() {
-        mainActivity.setWeatherData(null);
-
+    public void weatherDataListShouldBeBeFilledWithEmptyList() {
+        mainActivity.setWeatherData(new ArrayList<WeatherEntry>(7));
         assertEquals(recyclerView.getAdapter().getItemCount(), 0);
     }
 

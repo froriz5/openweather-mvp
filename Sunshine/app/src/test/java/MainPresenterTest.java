@@ -1,7 +1,3 @@
-/**
- * Created by froriz on 9/29/15.
- */
-
 import android.support.v7.widget.RecyclerView;
 
 import com.sapient.froriz.sunshine.BuildConfig;
@@ -9,6 +5,7 @@ import com.sapient.froriz.sunshine.Presenter.MainPresenter;
 import com.sapient.froriz.sunshine.Presenter.MainPresenterImpl;
 import com.sapient.froriz.sunshine.R;
 import com.sapient.froriz.sunshine.View.MainActivity;
+import com.sapient.froriz.sunshine.View.MainView;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
 import org.junit.Before;
@@ -21,14 +18,13 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 import java.util.List;
 
-import java_cup.Main;
-
 import static org.junit.Assert.assertEquals;
 
 /**
- * Unit Tests for the Main Activity.
- * Created by Felipe Roriz on 9/25/15.
+ * Unit Tests for the Main View Presenter.
+ * Created by Felipe Roriz on 9/29/15.
  */
+
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class MainPresenterTest {
@@ -44,20 +40,37 @@ public class MainPresenterTest {
         recyclerView = (RecyclerView) mainActivity.findViewById(R.id.recyclerView);
     }
 
+    /**
+     * If list of WeatherEntries is null, should create an Empty List of size 7.
+     */
     @Test
-    public void weatherDataListShouldBeEmptyWithNull() {
-        presenter.setWeatherData(null);
-        assertEquals(recyclerView.getAdapter().getItemCount(), 0);
+    public void nullListShouldCreateEmptyList() {
+        int numEntries = presenter.checkWeatherData(null).size();
+        assertEquals(numEntries, 0);
     }
 
+    /**
+     * If list of WeatherEntries is not null, should return the same list.
+     */
     @Test
-    public void weatherDataListShouldBeFilled() {
+    public void validListShouldReturnSameList() {
+        List<WeatherEntry> testEntries = getTestList();
+        List<WeatherEntry> testEntriesChecked = presenter.checkWeatherData(testEntries);
+
+        assertEquals(testEntries.size(), testEntriesChecked.size());
+        assertEquals(testEntriesChecked, testEntries);
+    }
+
+    /**
+     * Create a list of test WeatherEntry POJOs.
+     * @return List of WeatherEntry POJOs.
+     */
+    public List<WeatherEntry> getTestList() {
         // Create list of mock WeatherEntry POJOs.
         List<WeatherEntry> weatherEntryList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             weatherEntryList.add(WeatherEntry.createWeatherEntry());
         }
-        presenter.setWeatherData(weatherEntryList);
-        assertEquals(recyclerView.getAdapter().getItemCount(), 7);
+        return weatherEntryList;
     }
 }

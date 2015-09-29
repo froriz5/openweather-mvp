@@ -6,6 +6,7 @@ import com.sapient.froriz.sunshine.Networking.OpenWeatherMapWrapper;
 import com.sapient.froriz.sunshine.View.MainView;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +34,20 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void setWeatherData(List<WeatherEntry> weatherEntries) {
         view.setWeatherData(weatherEntries);
+    }
+
+    /**
+     * Check to see if list of WeatherEntries are valid.
+     * @param weatherEntries List of WeatherEntry POJOs.
+     * @return List of WeatherEntry POJOS.
+     */
+    @Override
+    public List<WeatherEntry> checkWeatherData(List<WeatherEntry> weatherEntries) {
+        if (weatherEntries == null) {
+            // Return an empty list.
+            return new ArrayList<WeatherEntry>(7);
+        }
+        return weatherEntries;
     }
 
     /**

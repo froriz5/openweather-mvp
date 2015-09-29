@@ -11,5 +11,7 @@ public interface MainPresenter {
 
     public void setWeatherData(List<WeatherEntry> weatherEntries);
 
+    public List<WeatherEntry> checkWeatherData(List<WeatherEntry> weatherEntries);
+
     public void makeApiCall(String cityName);
 }
