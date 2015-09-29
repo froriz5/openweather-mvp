@@ -35,13 +35,12 @@ public class MainActivityTest {
     @Before
     public void setUp() {
         mainActivity = Robolectric.setupActivity(MainActivity.class);
-        presenter = new MainPresenterImpl(mainActivity);
         recyclerView = (RecyclerView) mainActivity.findViewById(R.id.recyclerView);
     }
 
     @Test
     public void weatherDataListShouldBeEmptyWithNull() {
-        presenter.setWeatherData(null);
+        mainActivity.setWeatherData(null);
 
         assertEquals(recyclerView.getAdapter().getItemCount(), 0);
     }
