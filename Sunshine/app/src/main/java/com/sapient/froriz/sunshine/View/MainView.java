@@ -9,4 +9,5 @@ import com.sapient.froriz.sunshine.models.WeatherEntry;
 public interface MainView {
 
     public void setWeatherData(WeatherEntry weatherEntry);
+    public void setWeatherCardIcon(String description);
 }

@@ -31,7 +31,11 @@ public class MainPresenterImpl implements MainPresenter {
      */
     @Override
     public void setWeatherData(WeatherEntry weatherEntry) {
+        weatherEntry = checkWeatherEntry(weatherEntry);
+        // set TextViews to correct data.
         view.setWeatherData(weatherEntry);
+        // set ImageView to correct Drawable.
+        view.setWeatherCardIcon(weatherEntry.getDescription());
     }
 
     /**

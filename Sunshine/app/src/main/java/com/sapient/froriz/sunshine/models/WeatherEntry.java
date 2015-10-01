@@ -17,7 +17,7 @@ public class WeatherEntry {
      * Dummy data in case a test model is needed.
      */
     public WeatherEntry() {
-        this("Chicago", 72, 60, 75, "Cloudy");
+        this("Chicago", 72, 60, 75, "Clouds");
     }
 
     /**
@@ -40,6 +40,26 @@ public class WeatherEntry {
                 "Low: " + low + " --- " +
                 "High: " + high;
 
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public double getCurrentTemp() {
+        return currentTemp;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
