@@ -65,6 +65,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void setWeatherData(List<WeatherEntry> weatherEntries) {
         mAdapter.setWeatherEntryDataset(weatherEntries);
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 }

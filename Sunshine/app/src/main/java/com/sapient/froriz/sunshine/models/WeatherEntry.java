@@ -46,6 +46,34 @@ public class WeatherEntry {
         this.description = description;
     }
 
+    public long getDate() {
+        return date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public double getCurrentTemp() {
+        return currentTemp;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFormattedDate() {
+        return convertDateFromUTCFormat(date);
+    }
+
     /**
      * Format UTC time in milliseconds to local time.
      * @param date Time in Unix Milliseconds for the UTC Time Zone.
@@ -54,7 +82,8 @@ public class WeatherEntry {
     private String convertDateFromUTCFormat(long date) {
         Calendar calendar = GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTimeInMillis(date*1000L);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d");
         sdf.setTimeZone(TimeZone.getDefault());
         String formattedDate = sdf.format(calendar.getTime());
         return formattedDate;
