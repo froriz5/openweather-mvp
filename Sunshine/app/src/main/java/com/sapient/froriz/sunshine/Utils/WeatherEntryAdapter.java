@@ -39,7 +39,7 @@ public class WeatherEntryAdapter extends RecyclerView.Adapter<WeatherEntryAdapte
      */
     public WeatherEntryAdapter(List<WeatherEntry> weatherEntryDataset) {
         this.weatherEntryDataset = weatherEntryDataset;
-        notifyDataSetChanged();
+
     }
 
     /**
@@ -48,6 +48,7 @@ public class WeatherEntryAdapter extends RecyclerView.Adapter<WeatherEntryAdapte
      */
     public void setWeatherEntryDataset(List<WeatherEntry> weatherEntryDataset) {
         this.weatherEntryDataset = weatherEntryDataset;
+        notifyDataSetChanged();
     }
 
     /**
