@@ -1,5 +1,7 @@
 package com.sapient.froriz.sunshine.models;
 
+import android.os.Bundle;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,6 +21,11 @@ public class WeatherEntry {
     private double low;
     private double high;
     private String description;
+    private double pressure;
+    private double humidity;
+    private double windSpeed;
+    private double windDirection;
+    private double cloudCoverage;
 
     /**
      * Dummy data in case a test model is needed.
@@ -44,6 +51,36 @@ public class WeatherEntry {
         this.low = low;
         this.high = high;
         this.description = description;
+    }
+
+    /**
+     * Constructor for creating a WeatherEntry POJO for a Detail Activity.
+     * @param date Date in UTC time format.
+     * @param location City name.
+     * @param currentTemp Current Temperature.
+     * @param low Low of the day.
+     * @param high High of the day.
+     * @param description Description (i.e. Cloudy, Sunny, etc...)
+     * @param pressure Pressure measured in hPa.
+     * @param humidity Humidty measure in %.
+     * @param windSpeed Wind Speed measured in mph.
+     * @param windDirection Wind Direction measured in degrees.
+     * @param cloudCoverage Cloud coverage measured in %.
+     */
+    public WeatherEntry(long date, String location, double currentTemp, double low,
+                        double high, String description, double pressure, double humidity,
+                        double windSpeed, double windDirection, double cloudCoverage) {
+        this.date = date;
+        this.location = location;
+        this.currentTemp = currentTemp;
+        this.low = low;
+        this.high = high;
+        this.description = description;
+        this.pressure = pressure;
+        this.humidity = humidity;
+        this.windSpeed = windSpeed;
+        this.windDirection = windDirection;
+        this.cloudCoverage = cloudCoverage;
     }
 
     public long getDate() {
@@ -120,7 +157,12 @@ public class WeatherEntry {
                 root.getMain().getCurrentTemp(),
                 root.getMain().getLow(),
                 root.getMain().getMax(),
-                root.getWeather().get(0).getDescription()
+                root.getWeather().get(0).getDescription(),
+                root.getPressure(),
+                root.getHumidity(),
+                root.getWindSpeed(),
+                root.getWindDirection(),
+                root.getCloudCoverage()
         );
         return weatherEntry;
     }
@@ -140,5 +182,16 @@ public class WeatherEntry {
             weatherEntries.add(WeatherEntry.createWeatherEntry(list.get(i).getDate(), cityName, list.get(i)));
         }
         return weatherEntries;
+    }
+
+    public Bundle getWeatherBundle() {
+        Bundle weatherBundle = new Bundle();
+        weatherBundle.putCharSequence("date", getFormattedDate());
+        weatherBundle.putCharSequence("location", location);
+        weatherBundle.putDouble("currentTemp", currentTemp);
+        weatherBundle.putDouble("low", low);
+        weatherBundle.putDouble("high", high);
+        weatherBundle.putCharSequence("description", description);
+        return weatherBundle;
     }
 }

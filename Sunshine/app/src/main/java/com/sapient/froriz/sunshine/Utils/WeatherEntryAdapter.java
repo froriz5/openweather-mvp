@@ -1,7 +1,9 @@
 package com.sapient.froriz.sunshine.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sapient.froriz.sunshine.R;
+import com.sapient.froriz.sunshine.View.DetailActivity;
+import com.sapient.froriz.sunshine.View.MainActivity;
 import com.sapient.froriz.sunshine.models.WeatherEntry;
 
 import java.util.List;
@@ -68,7 +72,7 @@ public class WeatherEntryAdapter extends RecyclerView.Adapter<WeatherEntryAdapte
      * @return A View Holder corresponding to the item in the given index in the Recycler View.
      */
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
         View view;
         if (i == 0) {
             view = LayoutInflater.from(viewGroup.getContext())
@@ -79,10 +83,21 @@ public class WeatherEntryAdapter extends RecyclerView.Adapter<WeatherEntryAdapte
                     .inflate(R.layout.weather_entry_view, viewGroup, false);
         }
 
-        ViewHolder holder = new ViewHolder((CardView)view);
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WeatherEntry weatherEntry = weatherEntryDataset.get(i);
+                Bundle weatherBundle = weatherEntry.getWeatherBundle();
+                Intent weatherIntent = new Intent(context, DetailActivity.class);
+                context.startActivity(weatherIntent);
+            }
+        });
         // Setting context to use in helper methods to access Resources (i.e. drawables).
         context = viewGroup.getContext();
+
+        ViewHolder holder = new ViewHolder((CardView)view);
+
+
 
         return holder;
     }
