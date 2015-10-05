@@ -184,14 +184,20 @@ public class WeatherEntry {
         return weatherEntries;
     }
 
-    public Bundle getWeatherBundle() {
+    public Bundle getWeatherBundle(boolean firstEntry) {
         Bundle weatherBundle = new Bundle();
+        weatherBundle.putBoolean("firstEntry", firstEntry);
         weatherBundle.putCharSequence("date", getFormattedDate());
         weatherBundle.putCharSequence("location", location);
         weatherBundle.putDouble("currentTemp", currentTemp);
         weatherBundle.putDouble("low", low);
         weatherBundle.putDouble("high", high);
         weatherBundle.putCharSequence("description", description);
+        weatherBundle.putDouble("pressure", pressure);
+        weatherBundle.putDouble("humidity", humidity);
+        weatherBundle.putDouble("windSpeed", windSpeed);
+        weatherBundle.putDouble("windDirection", windDirection);
+        weatherBundle.putDouble("cloudCoverage", cloudCoverage);
         return weatherBundle;
     }
 }

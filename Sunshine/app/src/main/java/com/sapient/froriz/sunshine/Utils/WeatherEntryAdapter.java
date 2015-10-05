@@ -1,10 +1,14 @@
 package com.sapient.froriz.sunshine.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -87,9 +91,15 @@ public class WeatherEntryAdapter extends RecyclerView.Adapter<WeatherEntryAdapte
             @Override
             public void onClick(View v) {
                 WeatherEntry weatherEntry = weatherEntryDataset.get(i);
-                Bundle weatherBundle = weatherEntry.getWeatherBundle();
+                Bundle weatherBundle = weatherEntry.getWeatherBundle(i == 0);
                 Intent weatherIntent = new Intent(context, DetailActivity.class);
-                context.startActivity(weatherIntent);
+                weatherIntent.putExtras(weatherBundle);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)context,
+                        Pair.create(v, v.getResources().getString(R.string.weather_entry_card))
+                );
+
+                context.startActivity(weatherIntent, options.toBundle());
             }
         });
         // Setting context to use in helper methods to access Resources (i.e. drawables).

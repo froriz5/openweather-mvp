@@ -3,4 +3,14 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="weather_entry_city_name">weather_entry_city_name</string>
+    <string name="weather_entry_date">weather_entry_date</string>
+    <string name="weather_entry_temp_current">weather_entry_temp_current</string>
+    <string name="weather_entry_temp_low">weather_entry_temp_low</string>
+    <string name="weather_entry_temp_high">weather_entry_temp_high</string>
+    <string name="weather_entry_icon">weather_entry_icon</string>
+    <string name="weather_entry_description">weather_entry_description</string>
+    <string name="weather_entry_card">weather_entry_card</string>
+
+
 </resources>
